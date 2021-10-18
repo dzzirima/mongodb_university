@@ -1,0 +1,217 @@
+link to documentation
+
+https://docs.mongodb.com/manual/meta/aggregation-quick-reference/
+
+
+getting a value in a nested doc:
+"gravity.value":1
+
+reassigning the value 
+gravity:"$gravity.value"
+
+adding new field
+surfaceGravity:"$gravity.value"
+
+multiplication
+
+mmyWeight:{
+            multiply:[
+                {divide:["$gravity.value",9.8]},
+                98
+            ]
+}
+
+
+
+..................................$addFields Stage...............................
+Adds new fields to documents. $addFields outputs documents that contain all existing
+fields from the input documents and newly added fields
+
+$addFields appends new fields to existing documents. You can include one or more $addFields stages in an aggregation operation
+
+db.solarSystem.aggregate([
+   {
+    $project:{
+        _id:0,
+        name:1,
+        gravity:1,
+        mass:1,
+        radius:1,
+        sma:1,
+    }
+   },{
+       $addFields:{
+           gravity:"$gravity.value",
+           mass:"$mass.value",
+           radius:"$radius.value"
+       }
+   }
+
+])
+
+so basically it allows us to select the fields and do the transformations on the fields that we have selected
+
+
+
+............................................................$geoNear......
+used when the dealing with geoCoodinates
+Outputs documents in order of nearest to farthest from a specified point.
+it takes more arguments 
+but needed  are;
+    #"near" :{type:"Point",coordinates:[lat,long]},
+    #distanceField:"distanceFromMongoDB" its inserted distance from the reference point
+    #spherical:true  us
+
+    other options
+
+e find 5  nearest hostipals
+db.nycFacilities.aggregate([
+    {
+        $geoNear:{
+            near:{
+                type:"Point",
+                coordinates:[lat,long]
+            },
+            distanceField:"distanceFromMongoDB",
+            spherical:true,
+            query:{type:"Hospital"},
+            limit:5
+        }
+    }
+])
+
+summary
+The collecton can have one and only one 2dsphere index
+if using 2dsphere , the distance is returned in meters
+$geoNear must be the first stage in an aggregation pipeline
+
+
+....................................................................Utility stages.......................................................
+$limit:{<inteher>}
+$skip:{<interger}
+$count{<name we want the count called>}
+
+eg:
+db.sola.aggregate([
+    {
+        "$project":{
+            _id:0,
+            name:1
+        }
+    },
+    {
+        "$limit":5
+    }
+])
+
+{count:"numberOfDocsPassedDownThePipeline"}
+
+By Default ,$sort will only use upto 100 megaBytes of RAM , setting allowDiskUse;true
+will allow for larger sorts
+
+sampling stage
+$stage
+
+Randomly selects the specified number of documents from its input
+{ $sample: { size: <positive integer> } }
+
+
+..........................................................................grouping stuff................................................
+Groups input documents by the specified _id expression and for each distinct grouping, outputs a document.
+The _id field of each output document contains the unique group by value.
+{
+    $group:
+      {
+        _id: <expression>, // Group By Expression
+        <field1>: { <accumulator1> : <expression1> },
+        ...
+      }
+   }
+
+   _id is where to specify what incoming documents should be grouped of
+
+
+accumulator values
+db.iceCreamdata.aggregate([
+    {
+        project:{
+            _id:0,
+            max_high:{
+                {
+               $max: "$trends.avg_high_temp"
+                }
+            }
+        }
+    }
+])
+
+getting the minimum
+db.iceCreamdata.aggregate([
+    {
+        project:{
+            _id:0,
+            max_high:{
+                {
+               $min: "$trends.avg_high_temp"
+                }
+            }
+        }
+    }
+])
+
+summary
+available accumulators are $sum,$avg,
+$max,$min,stdDevPop,$stdDevSam
+expression have no memory between documents
+May still have to use $reduce or $map for more complex calculations
+
+
+unwind Stage
+Deconstructs an array field from the input documents to output a document for each element. 
+Each output document is the input document with the value of the array field replaced by the element.
+
+{ $unwind: <field path> }
+
+
+
+
+.........................$lookup stage................................
+combine infor from 2 collections
+Performs a left outer join to an unsharded collection in the same database to 
+filter in documents from the "joined" collection for processing
+
+{
+    $lookup:
+      {
+        from: <collection to join>,
+        localField: <field from the input documents>,
+        foreignField: <field from the documents of the "from" collection>,
+        as: <output array field>
+      }
+ }
+summary
+The from cllection cannot be sharded
+the from colction must be in the same database
+the values in localField and foreignField are to match on equality
+as can be any name , but if its exitsd in the working documment that field will
+be replaced
+
+
+
+
+...........................................................groupById.................................................
+please checkitout i dont have time
+
+Groups incoming documents based on the value of a specified expression,
+then computes the count of documents in each distinct group.
+
+
+
+
+
+
+    
+
+
+
+

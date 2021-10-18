@@ -1,0 +1,34 @@
+[{
+    "product_id": "<int>",
+    "title": "<string>",
+    "description": "<string>",
+    "authors": ["<string>"],
+    "publisher": "<string>",
+    "language": "<string>",
+    "pages": "<int>",
+    "catalogues": {
+      "isbn10": "<string>",
+      "isbn13": "<string>"
+    }
+  }, {
+    "product_id": "<int>",
+    "title": "<string>",
+    "publisher": "<string>",
+    "language": "<string>",
+    "formats": {
+      "epub": {
+        "pages": "<int>"
+      },
+      "pdf": {
+        "pages": "<int>"
+      }
+    },
+    "isbn10": "<string>"
+  },{
+    "product_id": "<int>",
+    "title": "<string>",
+    "narrator": "<string>",
+    "publisher": "<string>",
+    "language": "<string>",
+    "length_minutes": "<int>"
+  }]

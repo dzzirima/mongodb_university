@@ -1,0 +1,22 @@
+{
+  _id: ObjectId("59a06674c8df9f3cd2ee7d54"),
+  name: 'Earth',
+  type: 'Terrestrial planet',
+  orderFromSun: 3,
+  radius: { value: 6378.137, units: 'km' },
+  mass: { value: 5.9723e+24, units: 'kg' },
+  sma: { value: 149600000, units: 'km' },
+  orbitalPeriod: { value: 1, units: 'years' },
+  eccentricity: 0.0167,
+  meanOrbitalVelocity: { value: 29.78, units: 'km/sec' },
+  rotationPeriod: { value: 1, units: 'days' },
+  inclinationOfAxis: { value: 23.45, units: 'degrees' },
+  meanTemperature: 15,
+  gravity: { value: 9.8, units: 'm/s^2' },
+  escapeVelocity: { value: 11.18, units: 'km/sec' },
+  meanDensity: 5.52,
+  atmosphericComposition: 'N2+O2',
+  numberOfMoons: 1,
+  hasRings: false,
+  hasMagneticField: true
+}

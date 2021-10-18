@@ -1,0 +1,11 @@
+vi mongod.conf
+security:
+  authorization: enabled
+
+mongo admin --port 27001 --eval 'db.shutdownServer()'
+
+(Restarting the server with  new  configuration file mongod.conf) 
+mongod -f mongod.conf
+
+
+mongo --port 27001 (connecting to mongo at port 27001)

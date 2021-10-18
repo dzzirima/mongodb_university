@@ -1,0 +1,4 @@
+This is incorrect. If you don't see a Chart with three rows, that means you have yet to create 
+your text Chart. Please redo it. To get the right value, you want to first narrow items down by 
+the type of score. Drag type to the Groups section and make sure to unwind the array. Then, you want the mean 
+values of those scores so drag score to the Values section. Unwind the array and choose the mean value.

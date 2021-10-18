@@ -1,0 +1,42 @@
+Transaction in Mongodb
+
+https://www.mongodb.com/transactions
+
+validator command in windows
+validate_m320 example --file answer_schema.json --verbose
+bison supported types
+https://docs.mongodb.com/manual/reference/bson-types/
+
+staleness of data What happens when data changes
+https://docs.mongodb.com/manual/changeStreams/
+
+
+patterns
+1.Attibute patterns
+when we have objects with similar but diference representation
+when we have a lot of similar fields
+some fields may may be present in one object and not present in another
+specs:[{
+	k:name ,v:"surname",u:"lastmae"
+	}
+	]
+
+then create  an index 
+kdb.products.createIndex({"specs.k":1,"specs.v":1})
+
+usually used for storing list of dates
+or catering for situation where we dont know the fields
+working with unpreadictable fields  or rare fileds
+
+2.subset
+	used when dealing with large large documnents , just split the document into 
+	most used and not frequently used
+use case
+	reviews
+	comments
+use a minimum or 20 at most at the rest store them on another document, produce it when 
+its requested
+
+
+3.
+
